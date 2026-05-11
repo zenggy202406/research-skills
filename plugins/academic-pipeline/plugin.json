@@ -1,0 +1,33 @@
+{
+  "name": "academic-pipeline",
+  "description": "Full academic research-to-publication pipeline: deep research, paper writing, peer review simulation, and orchestrated workflow. All upstream/open-source skills.",
+  "version": "1.0.0",
+  "skills": [
+    "deep-research",
+    "academic-paper",
+    "academic-paper-reviewer",
+    "academic-pipeline"
+  ],
+  "upstream_dependencies": {
+    "deep-research": {
+      "source": "TBD",
+      "version": "2.8.1",
+      "note": "Open-source, included as fork"
+    },
+    "academic-paper": {
+      "source": "TBD",
+      "version": "3.0.1",
+      "note": "Open-source, included as fork"
+    },
+    "academic-paper-reviewer": {
+      "source": "TBD",
+      "version": "1.8.1",
+      "note": "Open-source, included as fork"
+    },
+    "academic-pipeline": {
+      "source": "TBD",
+      "version": "3.2.1",
+      "note": "Open-source orchestrator, included as fork"
+    }
+  }
+}
