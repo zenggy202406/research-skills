@@ -4,3 +4,6 @@
 [submodule "plugins/paper-pipeline/skills/paper-mentor"]
 	path = plugins/paper-pipeline/skills/paper-mentor
 	url = https://github.com/sellerbubble/paper-mentor-skill.git
+[submodule "plugins/paper-pipeline/skills/paper-reader"]
+	path = plugins/paper-pipeline/skills/paper-reader
+	url = https://github.com/AIED007/paper-reader.git

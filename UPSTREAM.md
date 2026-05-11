@@ -1,22 +1,40 @@
 # Upstream Skill Sources
 
-This repo includes forked copies of open-source skills. Track their original sources here so you can pull updates when needed.
+This repo includes upstream skills managed as git submodules. Their original source repos are listed below.
 
-## Status
+## Submodules
 
-| Skill | Plugin | Source URL | Last Synced |
-|-------|--------|-----------|-------------|
-| paper-mentor | paper-pipeline | https://github.com/sellerbubble/paper-mentor-skill | 2026-05-10 |
-| paper-reader | paper-pipeline | TBD | — |
-| deep-research | academic-pipeline | TBD | — |
-| academic-paper | academic-pipeline | TBD | — |
-| academic-paper-reviewer | academic-pipeline | TBD | — |
-| academic-pipeline | academic-pipeline | TBD | — |
+| Skill(s) | Plugin | Source Repo | Submodule Path |
+|-----------|--------|------------|----------------|
+| deep-research, academic-paper, academic-paper-reviewer, academic-pipeline | academic-pipeline | https://github.com/Imbad0202/academic-research-skills | `plugins/academic-pipeline` |
+| paper-mentor | paper-pipeline | https://github.com/sellerbubble/paper-mentor-skill | `plugins/paper-pipeline/skills/paper-mentor` |
+| paper-reader | paper-pipeline | https://github.com/AIED007/paper-reader | `plugins/paper-pipeline/skills/paper-reader` |
 
 ## How to Update from Upstream
 
-1. Find the upstream repo URL and add it as a remote or download the latest release
-2. Compare your local copy with the upstream version
-3. Merge changes manually (your custom skills may depend on specific behavior)
-4. Update the "Last Synced" date above
-5. Commit with message: `chore: sync <skill-name> from upstream`
+```bash
+# Update all submodules to latest
+git submodule update --remote --merge
+
+# Or update a specific one
+cd plugins/academic-pipeline
+git pull origin main
+cd ../..
+
+# Commit the updated references
+git add .
+git commit -m "chore: sync upstream skills"
+git push
+```
+
+## How to Clone This Repo (includes submodules)
+
+```bash
+git clone --recurse-submodules https://github.com/zenggy202406/research-skills.git
+```
+
+Or if already cloned without submodules:
+
+```bash
+git submodule update --init --recursive
+```
