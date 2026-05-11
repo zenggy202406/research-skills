@@ -1,0 +1,3 @@
+[submodule "plugins/academic-pipeline"]
+	path = plugins/academic-pipeline
+	url = https://github.com/Imbad0202/academic-research-skills.git
