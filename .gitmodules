@@ -1,3 +1,6 @@
 [submodule "plugins/academic-pipeline"]
 	path = plugins/academic-pipeline
 	url = https://github.com/Imbad0202/academic-research-skills.git
+[submodule "plugins/paper-pipeline/skills/paper-mentor"]
+	path = plugins/paper-pipeline/skills/paper-mentor
+	url = https://github.com/sellerbubble/paper-mentor-skill.git
