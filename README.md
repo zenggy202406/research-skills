@@ -10,7 +10,7 @@ This repo is designed for researchers who use Claude Cowork as a research assist
 |--------|--------|-------------|
 | [paper-pipeline](plugins/paper-pipeline/) | 5 (3 custom + 2 upstream) | Literature screening, selection, and deep reading |
 | [kb-writing](plugins/kb-writing/) | 6 (all custom) | Knowledge Base management and mentored section writing |
-| [academic-pipeline](plugins/academic-pipeline/) | 4 (all upstream) | End-to-end research-to-publication pipeline |
+| [academic-pipeline](plugins/academic-pipeline@8988ca4/) | 4 (all upstream) | End-to-end research-to-publication pipeline |
 
 ## Skill Overview
 
