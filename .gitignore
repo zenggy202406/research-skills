@@ -23,4 +23,3 @@ node_modules/
 # Nested git repos (upstream skills may have .git dirs)
 # Remove these before committing
 plugins/paper-pipeline/skills/paper-mentor/.git
-# Test
