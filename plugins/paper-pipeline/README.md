@@ -1,26 +1,15 @@
 # Paper Pipeline Plugin
 
-Academic paper screening and reading workflow.
+Literature screening, selection, and deep reading workflow for academic research. Takes you from a pile of PDFs to a curated, deeply understood set of papers ready for knowledge extraction and writing.
 
 ## Skills
 
-| Skill | Origin | Description |
-|-------|--------|-------------|
-| paper-skimmer | Custom | Quick-scan papers into per-project Excel spreadsheets |
-| paper-selector | Custom | Filter skimmed papers by research-alignment scoring |
-| paper-deep-reader | Custom | Mentored deep reading with Bloom-taxonomy questioning |
-| paper-reader | Upstream | Converts papers into interactive HTML study files |
-| paper-mentor | Upstream | HuggingFace-powered paper comprehension mentor |
+### Custom Skills
 
-## Workflow
+#### paper-skimmer
 
-```
-paper-skimmer → paper-selector → paper-deep-reader
-                                        ↓
-                              paper-reader / paper-mentor
-```
+Quick-scans academic papers and extracts structured information into a per-project Excel spreadsheet. Accepts PDFs, pasted text, or papers already in the conversation. Handles both single papers and batch processing. When connected to the Research Knowledge Base, outputs go to the active project folder and Layer 1 literature selection rules guide the extraction.
 
-## Upstream Sources
+**Trigger phrases:** `skim this paper`, `scan these PDFs`, `add to my project`, `build literature spreadsheet`, `extract paper info`
 
-- **paper-mentor**: https://github.com/sellerbubble/paper-mentor-skill
-- **paper-reader**: Source URL TBD
+**Output:** One `.xlsx` file per project with one row per paper, containing title, autho
