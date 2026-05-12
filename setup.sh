@@ -4,15 +4,19 @@
 
 set -e
 
-echo "=== Step 1: Clean up nested .git from paper-mentor ==="
-rm -rf plugins/paper-pipeline/skills/paper-mentor/.git
+echo "=== Step 1: Verify marketplace structure ==="
+test -f .claude-plugin/marketplace.json
+test -f plugins/research-skills/.claude-plugin/plugin.json
+test -d plugins/research-skills/modules/paper-pipeline/skills
+test -d plugins/research-skills/modules/kb-writing/skills
+test -d plugins/research-skills/modules/academic-pipeline
 echo "Done."
 
 echo ""
 echo "=== Step 2: Initialize git repo ==="
 git init
 git add .
-git commit -m "feat: initial commit — 3 plugin marketplaces, 15 skills"
+git commit -m "feat: initial research-skills plugin marketplace"
 echo "Done."
 
 echo ""

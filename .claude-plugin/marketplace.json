@@ -1,0 +1,22 @@
+{
+  "name": "research-skills",
+  "owner": {
+    "name": "zenggy202406"
+  },
+  "description": "Academic research skills marketplace for literature screening, knowledge-base management, and manuscript writing.",
+  "plugins": [
+    {
+      "name": "research-skills",
+      "source": "./plugins/research-skills",
+      "description": "One Claude Code plugin bundling paper-pipeline, kb-writing, and academic-pipeline modules.",
+      "category": "academic-research",
+      "tags": [
+        "academic",
+        "research",
+        "literature-review",
+        "knowledge-base",
+        "writing"
+      ]
+    }
+  ]
+}

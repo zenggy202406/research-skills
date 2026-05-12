@@ -1,40 +1,26 @@
 # Upstream Skill Sources
 
-This repo includes upstream skills managed as git submodules. Their original source repos are listed below.
+This repo distributes one Claude Code plugin, `research-skills`, with three internal modules:
 
-## Submodules
-
-| Skill(s) | Plugin | Source Repo | Submodule Path |
-|-----------|--------|------------|----------------|
-| deep-research, academic-paper, academic-paper-reviewer, academic-pipeline | academic-pipeline | https://github.com/Imbad0202/academic-research-skills | `plugins/academic-pipeline` |
-| paper-mentor | paper-pipeline | https://github.com/sellerbubble/paper-mentor-skill | `plugins/paper-pipeline/skills/paper-mentor` |
-| paper-reader | paper-pipeline | https://github.com/AIED007/paper-reader | `plugins/paper-pipeline/skills/paper-reader` |
-
-## How to Update from Upstream
-
-```bash
-# Update all submodules to latest
-git submodule update --remote --merge
-
-# Or update a specific one
-cd plugins/academic-pipeline
-git pull origin main
-cd ../..
-
-# Commit the updated references
-git add .
-git commit -m "chore: sync upstream skills"
-git push
+```text
+plugins/research-skills/modules/paper-pipeline/
+plugins/research-skills/modules/kb-writing/
+plugins/research-skills/modules/academic-pipeline/
 ```
 
-## How to Clone This Repo (includes submodules)
+Some module content comes from upstream open-source projects.
 
-```bash
-git clone --recurse-submodules https://github.com/zenggy202406/research-skills.git
-```
+## Sources
 
-Or if already cloned without submodules:
+| Content | Bundled path | Source repo |
+|---|---|---|
+| `academic-pipeline` module | `plugins/research-skills/modules/academic-pipeline/` | https://github.com/Imbad0202/academic-research-skills |
+| `paper-reader` skill | `plugins/research-skills/modules/paper-pipeline/skills/paper-reader/` | https://github.com/AIED007/paper-reader |
+| `paper-mentor` skill | `plugins/research-skills/modules/paper-pipeline/skills/paper-mentor/` | https://github.com/sellerbubble/paper-mentor-skill |
 
-```bash
-git submodule update --init --recursive
-```
+## Maintenance Notes
+
+- The installable plugin must be self-contained under `plugins/research-skills/`; Claude Code copies only the plugin directory into its cache.
+- Do not make plugin components depend on files outside `plugins/research-skills/`.
+- When refreshing upstream content, update the bundled module copy and then validate the marketplace with `claude plugin validate .`.
+- Preserve upstream authorship and license notes in README documentation.

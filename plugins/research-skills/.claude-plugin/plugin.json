@@ -1,0 +1,26 @@
+{
+  "name": "research-skills",
+  "description": "Academic research workflow plugin bundling paper screening, Research Knowledge Base management, mentored manuscript writing, and an upstream end-to-end academic pipeline.",
+  "author": {
+    "name": "zenggy202406"
+  },
+  "homepage": "https://github.com/zenggy202406/research-skills",
+  "repository": "https://github.com/zenggy202406/research-skills",
+  "license": "NOASSERTION",
+  "keywords": [
+    "academic",
+    "research",
+    "literature-review",
+    "knowledge-base",
+    "writing",
+    "paper-reading"
+  ],
+  "skills": [
+    "modules/paper-pipeline/skills",
+    "modules/kb-writing/skills",
+    "modules/academic-pipeline"
+  ],
+  "commands": "modules/academic-pipeline/commands",
+  "agents": "modules/academic-pipeline/agents",
+  "hooks": "hooks/hooks.json"
+}

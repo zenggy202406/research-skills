@@ -20,6 +20,5 @@ venv/
 # Node
 node_modules/
 
-# Nested git repos (upstream skills may have .git dirs)
-# Remove these before committing
-plugins/paper-pipeline/skills/paper-mentor/.git
+# Nested git pointers copied from upstream skill repos should not be committed
+**/.git
