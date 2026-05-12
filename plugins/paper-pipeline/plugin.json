@@ -1,0 +1,19 @@
+{
+  "name": "paper-pipeline",
+  "description": "Academic paper screening and reading workflow: skim → select → deep-read → interactive reader. Includes custom skills for literature screening and upstream tools for paper comprehension.",
+  "version": "1.0.0",
+  "skills": [
+    "paper-skimmer",
+    "paper-selector",
+    "paper-deep-reader",
+    "paper-reader",
+    "paper-mentor"
+  ],
+  "upstream_dependencies": {
+    "paper-reader": {
+      "source": "https://github.com/AIED007/paper-reader",
+      "note": "Open-source skill, included as submodule"
+    },
+    "paper-mentor": {
+      "source": "https://github.com/sellerbubble/paper-mentor-skill",
+     
