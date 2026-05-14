@@ -50,13 +50,13 @@ Each dream cycle computes a delta per node:
 |----------|-------|-----------|
 | New project reference | **+0.15** per project | Project file modified since last dream contains a new reference to this node |
 | New connection | **+0.10** per relationship | Node's degree increased since last dream |
-| No activity | **−0.10** | Neither of the above detected |
+| No activity | **−0.20** | Neither of the above detected |
 
 The delta is added to the existing vitality: `new_vitality = max(0, old_vitality + delta)`
 
 ### Pruning Cutoff
 
-**Default threshold: 0.3** (configurable via `--threshold`).
+**Default threshold: 0.25** (configurable via `--threshold`).
 
 A node is a pruning candidate when: vitality < threshold AND degree ≤ 1.
 
