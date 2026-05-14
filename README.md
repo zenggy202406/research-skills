@@ -1,6 +1,6 @@
-# Research Skills Marketplace
+# Research-Brain Marketplace
 
-A Claude Code plugin marketplace for academic research workflows.
+A Claude Code plugin marketplace for academic research workflows and skills.
 
 This repo now exposes **one installable plugin**, `research-skills`, instead of three separate plugins. Inside that plugin, the skills are organized into three workflow modules:
 
