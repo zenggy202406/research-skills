@@ -58,7 +58,9 @@ Verify all expected directories and files exist:
 
 6. **Graph integrity**: Validate all relationships in `graph.yaml` against `relationship-schema.yaml`. Check that relationship targets exist as nodes.
 
-7. **Field intelligence integrity**: Check that all field intelligence entries in `graph.yaml` (types: gap, open_question, theoretical_constraint, methodological_limitation, research_guide) have required fields:
+7. **Isolated nodes**: Flag any nodes in `graph.yaml` with zero relationships (neither source nor target in any relationship). Every node must have at least one connection. Report isolated nodes as **Warning** items and recommend adding appropriate relationships using the relationship schema.
+
+8. **Field intelligence integrity**: Check that all field intelligence entries in `graph.yaml` (types: gap, open_question, theoretical_constraint, methodological_limitation, research_guide) have required fields:
    - All types: `id`, `type`, `name`, `statement`, `tags`, `sources`
    - gap: `significance`
    - open_question: `current_state`
@@ -66,13 +68,13 @@ Verify all expected directories and files exist:
    - methodological_limitation: `impact`, `workarounds`
    - research_guide: `guide_type` (must be `theoretical` or `practical`)
 
-8. **Field summary sync**: Compare `layer2-field/field-summary.md` against `graph.yaml` to ensure:
+9. **Field summary sync**: Compare `layer2-field/field-summary.md` against `graph.yaml` to ensure:
    - Concept and method counts match
    - Every field intelligence entry in graph.yaml has a corresponding one-line summary in field-summary.md
    - No entries in field-summary.md reference IDs that don't exist in graph.yaml
    - If out of sync, offer to regenerate field-summary.md
 
-9. **State manifest staleness**: Compare `kb-state.yaml` last_updated to current state by re-running:
+10. **State manifest staleness**: Compare `kb-state.yaml` last_updated to current state by re-running:
    ```bash
    python "system/kb-skill/scripts/update_state.py" --kb-root <kb-path>
    ```
@@ -142,9 +144,9 @@ Read `system/kb-skill/references/layer1-operations.md` for details.
 Read `system/kb-skill/references/layer2-operations.md` for details.
 
 **Manual additions**:
-- **Add a concept**: Gather name, definition, boundaries, examples → add to graph with `yaml_manager.py` → create markdown if complex → regenerate `field-summary.md`
-- **Add a method**: Gather details using the method template → add to graph → create markdown file → regenerate `field-summary.md`
-- **Add field intelligence** (gap, open question, constraint, limitation, research guide): Gather required fields per type (see `layer2-operations.md` "Add Field Intelligence") → add to `graph.yaml` → regenerate `field-summary.md`
+- **Add a concept**: Gather name, definition, boundaries, examples, **and at least one relationship** → add to graph with `yaml_manager.py` → create markdown if complex → regenerate `field-summary.md`
+- **Add a method**: Gather details using the method template → add to graph **with at least one relationship** (e.g., `is_measured_by` from a concept) → create markdown file → regenerate `field-summary.md`
+- **Add field intelligence** (gap, open question, constraint, limitation, research guide): Gather required fields per type (see `layer2-operations.md` "Add Field Intelligence") → **add at least one typed relationship** (pertains_to, asks_about, constrains, limits, or addresses) → add to `graph.yaml` → regenerate `field-summary.md`
 - **Add relationships**: Identify source/target, validate type against schema, add via `yaml_manager.py`
 - **Edit existing**: Read current content, propose edits, apply after approval → regenerate `field-summary.md` if field intelligence or coverage changed
 - **Register new relationship type**: Add to `relationship-schema.yaml` after validation
@@ -154,7 +156,7 @@ Read `system/kb-skill/references/layer2-operations.md` for details.
 2. Detect format: if `Name.md` exists (same base name as PDF) → read markdown (preferred, token-efficient); otherwise → read PDF directly. Load `Name_meta.json` for citation info if available. Broken image links in markdown are expected — use caption text and skip missing files.
 3. Add a registry entry in `fundamental-readings.yaml` with `extraction_status: pending`
 4. Read the paper and compare with the existing graph — identify what's new vs. already covered
-5. Extract: new concepts → propose nodes; refinements to existing concepts → propose edits; new methods → propose nodes; new relationships → propose with validation; **new field intelligence** (gaps, open questions, constraints, limitations, guides) → propose entries; challenges to existing knowledge → flag
+5. Extract: new concepts → propose nodes **with relationships**; refinements to existing concepts → propose edits; new methods → propose nodes **with relationships**; new relationships → propose with validation; **new field intelligence** (gaps, open questions, constraints, limitations, guides) → propose entries **with typed relationships**; challenges to existing knowledge → flag. **No isolated nodes** — every new node must connect to at least one existing node.
 6. Present all proposals grouped by type (concepts, methods, relationships, field intelligence, challenges)
 7. Apply approved changes, update registry entry with `nodes_added`, `relationships_added`
 8. **Regenerate `field-summary.md`** to reflect new content

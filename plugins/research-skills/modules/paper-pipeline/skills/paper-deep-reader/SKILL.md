@@ -50,7 +50,7 @@ When operating within the Research Knowledge Base context (invoked via `/kb` or 
    - Contextualize the paper's constructs against known Layer 2 concepts
    - Check whether the paper addresses any known field gaps (GAP entries) or open questions (OQ entries)
    - Note if the paper confirms or challenges any theoretical constraints (TC entries)
-   - Flag new concepts not yet in Layer 2 as potential additions
+   - Flag new concepts not yet in Layer 2 as potential additions (note: when these are later added via `/kb-health`, they must include at least one relationship — no isolated nodes)
    - If you need the full definition of a specific concept, grep `Research Knowledge Base/layer2-field/graph.yaml` by name or ID — **do NOT read the full graph.yaml**
 
 3. **Claim extraction** (new Step 5.5 — see below): After the interactive reading and before writing the paragraph summary, extract atomic empirical claims from the paper into structured YAML format and append to the project's `claims.yaml`.

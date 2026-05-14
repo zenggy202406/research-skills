@@ -2,9 +2,9 @@
 name: kb-dream
 description: "Memory consolidation for the Research Knowledge Base. Functions like dreaming: tracks cumulative vitality scores for Layer 2 nodes across dream cycles, consolidates high-value knowledge (tags, hints), prunes dormant nodes to cold storage, detects near-duplicates, suggests missing relationships, and proposes mild Layer 1 reshaping based on usage patterns. Incremental: only scans changes since last dream. Use when: 'dream', 'consolidate kb', 'prune kb', 'kb memory', 'clean up Layer 2', 'optimize kb', 'kb dream', 'dormant nodes', 'restore node', 'vitality check', 'check node health'."
 metadata:
-  version: "2.0.0"
+  version: "3.0.0"
   created: "2026-05-11"
-  updated: "2026-05-11"
+  updated: "2026-05-14"
   depends_on: "kb"
   status: active
 ---

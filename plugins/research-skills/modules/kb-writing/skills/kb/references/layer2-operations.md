@@ -90,7 +90,7 @@ Use grep on `graph.yaml` first. Only read the full file for path queries or comp
    - Conceptual boundaries
    - Light illustrative examples (optional)
    - Tags (flat list, for filtering)
-   - Relationships to existing nodes
+   - Relationships to existing nodes (MANDATORY — every node must have at least one relationship. Read `relationship-schema.yaml` for valid types.)
 
 2. Determine storage:
    - If the concept is short (definition < 100 words, no complex structure) → inline in `graph.yaml`
@@ -99,6 +99,7 @@ Use grep on `graph.yaml` first. Only read the full file for path queries or comp
 3. Generate a unique ID: `CON-XXX` (next available number)
 
 4. Validate relationships against `relationship-schema.yaml` — ensure the relationship type is valid for the node type pair.
+   **No isolated nodes**: If the user provides no relationships, propose at least one based on the concept's definition and tags. A concept must connect to the graph.
 
 5. Present the entry for approval, then add to `graph.yaml`.
 
@@ -159,7 +160,7 @@ Use grep on `graph.yaml` first. Only read the full file for path queries or comp
 2. Generate ID: `MET-XXX` (next available)
 3. Save the markdown file to `methods/[method-name].md`
 4. Add node to `graph.yaml` with pointer to the file
-5. Add relationships to concepts (typically `is_measured_by` from concept to method)
+5. Add relationships to concepts (MANDATORY — at minimum one `is_measured_by` link from a concept to this method, or an `is_variant_of` link to an existing method. No isolated nodes.)
 6. **Regenerate `field-summary.md`** if this adds a new method area.
 
 ## Add Field Intelligence
@@ -184,9 +185,16 @@ Field intelligence entries (gaps, open questions, theoretical constraints, metho
 ### Process:
 1. Identify the type and gather required fields
 2. Generate the next available ID for that type
-3. Present entry for approval
-4. Add to `graph.yaml` in the appropriate section
-5. **Regenerate `field-summary.md`** — add the one-line summary for the new entry
+3. Identify and add any useful relationship to a concept, method, or other field intelligence node using the appropriate type from `relationship-schema.yaml`:
+   - gap → `pertains_to` → concept
+   - open_question → `asks_about` → concept
+   - theoretical_constraint → `constrains` → concept
+   - methodological_limitation → `limits` → method or concept
+   - research_guide → `addresses` → concept, gap, or methodological_limitation
+   
+4. Present entry with relationships for approval
+5. Add to `graph.yaml` in the appropriate section
+6. **Regenerate `field-summary.md`** — add the one-line summary for the new entry
 
 ## Edit a Concept, Method, or Field Intelligence Entry
 
@@ -273,7 +281,7 @@ This is a first-time operation to populate Layer 2 with foundational knowledge f
    - Methods/paradigms described → propose as method nodes
    - Relationships between concepts → propose typed relationships
    - Concept-method links → propose `is_measured_by` relationships
-   - **Field intelligence**: gaps, open questions, theoretical constraints, methodological limitations, and research guides mentioned or implied by the text
+   - **Field intelligence**: gaps, open questions, theoretical constraints, methodological limitations, and research guides mentioned or implied by the text — each with at least one typed relationship (pertains_to, asks_about, constrains, limits, or addresses)
 
 5. After processing a batch, compile the full proposed graph:
    - List all concepts with definitions
@@ -301,7 +309,7 @@ When the user adds a new fundamental reading and wants it processed:
    - **New methods** or method variants → propose new method nodes
    - **New relationships** between existing or new nodes → propose with type validation
    - **Challenges or updates** to existing knowledge → flag for user (e.g., "This paper challenges the existing definition of CON-005")
-   - **New field intelligence** — gaps, open questions, constraints, limitations, or guides revealed by the text
+   - **New field intelligence** — gaps, open questions, constraints, limitations, or guides revealed by the text — each with at least one typed relationship to a concept or method
 
 4. Present all proposals grouped by type (new concepts, edits, new methods, new relationships, field intelligence, challenges)
 5. Apply approved changes
