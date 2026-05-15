@@ -41,6 +41,12 @@ This is the **fourth and final skill** in the academic pipeline. It:
 
 When operating within the Research Knowledge Base context (invoked via `/kb` or when a KB project is active), the literature review writing process is enriched with structured knowledge from all three layers. This is the primary intended use — the KB provides the reasoning scaffolding that transforms a collection of papers into a grounded, defensible review.
 
+#### Evidence Integrity Rules (Shared)
+
+**Before writing any prose, read and apply:** `modules/kb-writing/shared/evidence-integrity-rules.md`
+
+This shared rule file governs no-fabrication, evidence-first writing, transparent handling of unsupported ideas, logic flow requirements, secondary citation integrity, honest reporting of absent evidence, and confidence calibration. All 7 rules are mandatory during every writing phase.
+
 #### Grounding Policy
 
 During writing, strictly observe this priority:
@@ -48,6 +54,7 @@ During writing, strictly observe this priority:
 2. **Layer 2 is supportive** — use `field-summary.md` for field orientation (gaps, constraints, guides), and grep specific concepts from `graph.yaml` by ID for theoretical framing. Do NOT read full `graph.yaml`.
 3. **External knowledge is minimal** — do NOT introduce factual claims not backed by the knowledge base
 4. Maintain clear separation between **evidence** (from claims), **interpretation** (from arguments), and **speculation** (flagged explicitly)
+5. **Thin coverage requires action** — if a thematic section has fewer than 2 supporting papers, invoke article-search (Stage 2 — Topical) to search for additional papers on that construct or relationship. Present results to user for approval before incorporating. If no relevant papers are found, note the thin coverage honestly per evidence-integrity-rules.md Rule 6.
 
 #### Data Sources (replaces standard Step 1)
 

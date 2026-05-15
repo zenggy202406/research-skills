@@ -40,6 +40,12 @@ This skill **orchestrates** other skills in the pipeline rather than replacing t
 
 When operating within the Research Knowledge Base context (invoked via `/kb` or when a KB project is active), the Introduction writing process benefits from the structured knowledge already built in the project.
 
+#### Evidence Integrity Rules (Shared)
+
+**Before writing any prose, read and apply:** `modules/kb-writing/shared/evidence-integrity-rules.md`
+
+This shared rule file governs no-fabrication, evidence-first writing, transparent handling of unsupported ideas, logic flow requirements, secondary citation integrity, honest reporting of absent evidence, and confidence calibration. All 7 rules are mandatory during every writing phase.
+
 #### Grounding Policy
 
 During writing, strictly observe this priority:
@@ -47,6 +53,7 @@ During writing, strictly observe this priority:
 2. **Layer 2 is supportive** — use `field-summary.md` for field orientation and gap awareness, and grep specific concepts from `graph.yaml` by ID for the theoretical landscape. Do NOT read full `graph.yaml`.
 3. **External knowledge is minimal** — do NOT introduce factual claims not in the knowledge base
 4. Maintain clear separation between **evidence**, **interpretation**, and **speculation**
+5. **Unsupported claims require user confirmation** — if a theoretical or empirical point cannot be grounded in KB data, flag it per evidence-integrity-rules.md Rule 3. When evidence is absent, invoke article-search (Stage 3 — Evidential) to search for supporting papers before resorting to hedged speculation.
 
 #### Data Sources in KB Context
 
@@ -166,6 +173,7 @@ Phase 5: RQ FORMATION  → Guide user to formulate concrete research questions
 Phase 6: SELECT (2nd)  → Re-invoke paper-selector with refined RQs as criteria
 Phase 7: OUTLINE       → Generate detailed paragraph-level Introduction outline
 Phase 8: DRAFT         → Write the Introduction, invoking paper-deep-reader on-demand
+Phase 9: COMPILE       → Assemble full Introduction, final review, generate .docx
 ```
 
 Each phase involves the user. No phase proceeds without the user's confirmation or input.
@@ -529,4 +537,79 @@ Write section by section, following the outline. After completing each subsectio
 
 Incorporate feedback before moving to the next subsection.
 
-After all subsections are drafted, compile the fu
+After all subsections are drafted, compile the full Introduction and do a final review:
+
+### Evidence Integrity Check Per Subsection
+
+For each subsection, before presenting to user:
+1. Verify every claim traces to a KB source (claim ID, argument ID, or extracted evidence)
+2. Verify all citations use correct format (direct or secondary as appropriate)
+3. Flag any unsupported claims with ⚠️ UNSUPPORTED marker
+4. Check that the logical flow leads naturally toward the identified research gaps
+
+**Output of Phase 8:** A complete draft of the Introduction section, approved subsection by subsection.
+
+---
+
+## Phase 9 — Compile and Finalize
+
+### 9a. Assemble the Full Introduction
+
+Compile all approved subsections into a single coherent Introduction. Check for:
+
+1. **Hourglass flow** — The section moves from broad (context) to specific (research questions) as intended
+2. **Redundancy** — Remove repeated points that crept in across separate subsections
+3. **Consistency** — Terminology, tense, and citation style are uniform throughout
+4. **Gap justification** — Each research gap is clearly motivated by the preceding literature
+5. **RQ clarity** — Research questions follow logically from the identified gaps
+
+### 9b. Present the Full Draft
+
+> **Here's the complete Introduction section:**
+>
+> [Full text]
+>
+> **Please review the full draft. Would you like to:**
+> (a) Approve as-is
+> (b) Revise specific subsections
+> (c) Reorder content
+> (d) Add or remove content
+> (e) Adjust tone or emphasis
+
+### 9c. Generate the .docx
+
+Once the user approves the final text:
+
+1. **Read the docx skill** (`skills/docx/SKILL.md`) for formatting instructions
+2. Generate a `.docx` file with:
+   - Title: "Introduction — [Project Name]"
+   - APA 7 formatting (Times New Roman 12pt, double-spaced, 1-inch margins)
+   - Proper heading hierarchy
+   - All citations formatted in APA 7
+3. Save to the project folder or user's selected output location
+4. Present the file link to the user
+
+### 9d. Post-Writing Summary
+
+After generating the document, provide a brief summary:
+
+> **Introduction complete.**
+> - Subsections: [N]
+> - Research gaps identified: [N]
+> - Research questions: [N]
+> - KB sources used: [N] claims, [N] arguments, [N] papers
+> - Papers deep-read during writing: [N]
+> - Secondary citations used: [N]
+> - Unsupported points flagged: [N] (resolved: [N])
+
+---
+
+## Non-KB Mode
+
+If the user does not have a Research Knowledge Base, or invokes the skill outside a KB context:
+
+1. Skip all KB-specific steps (Layer 1 rules, Layer 2 field summary, structured claims/arguments)
+2. Ask the user to provide their own list of key papers and their main findings
+3. Follow the same phased workflow but rely on user-provided papers and on-demand reading
+4. Apply the writing principles from the Introduction writing guide regardless
+5. Use the same subsection-by-subsection interactive drafting process

@@ -60,8 +60,11 @@ research-skills/
       modules/
         paper-pipeline/
           skills/
+            article-search/
+              scripts/
         kb-writing/
           skills/
+          shared/
         academic-pipeline/
           commands/
           agents/
@@ -94,6 +97,7 @@ The plugin manifest points Claude Code to all skill locations:
 
 | Skill | What it does |
 |---|---|
+| `article-search` | Searches Google Scholar for research articles using a 4-stage keyword generator (Exploratory → Topical → Evidential → Citation-targeted). Works as pipeline entry point or on-demand evidence finder for writing skills. |
 | `paper-skimmer` | Quick-scans papers and extracts structured metadata into a per-project spreadsheet. |
 | `paper-selector` | Scores skimmed papers against a project idea or research question and writes a selected-paper sheet. |
 | `paper-deep-reader` | Guides close reading with Bloom-taxonomy questions, concise summaries, and optional claim extraction. |
@@ -108,9 +112,9 @@ The plugin manifest points Claude Code to all skill locations:
 | `kb-init` | First-time Knowledge Base setup for the researcher model and field knowledge base. |
 | `kb-health` | Diagnostics, project archiving, Layer 1 updates, Layer 2 expansion, and consistency checks. |
 | `kb-dream` | Memory consolidation, vitality scoring, dormant-node pruning, duplicate detection, and relationship suggestions. |
-| `lit-review-generator` | Interactive literature review drafting grounded in claims, arguments, and field concepts. |
-| `intro-writer` | Interactive introduction drafting from broad topic to research gap, RQs, outline, and prose. |
-| `discussion-writer` | Interactive discussion drafting from Results through evidence mapping, outline, and paragraph-level drafting. |
+| `lit-review-generator` | Interactive literature review drafting grounded in claims, arguments, and field concepts. Invokes `article-search` (Stage 2) when thematic sections have thin coverage. |
+| `intro-writer` | Interactive introduction drafting from broad topic to research gap, RQs, outline, and prose. Invokes `article-search` (Stage 3) for unsupported claims. |
+| `discussion-writer` | Interactive discussion drafting from Results through evidence mapping, outline, and paragraph-level drafting. Invokes `article-search` (Stage 3) for evidence gaps. |
 
 ### academic-pipeline
 
@@ -135,13 +139,30 @@ The custom KB skills use a three-layer Research Knowledge Base:
 
 1. Initialize the Knowledge Base with `kb-init`.
 2. Start or continue a project with `kb`.
-3. Add papers with `paper-skimmer`.
-4. Prioritize papers with `paper-selector`.
-5. Deep-read important papers with `paper-deep-reader`.
-6. Refine claims and build arguments with `kb`.
-7. Draft sections with `intro-writer`, `lit-review-generator`, or `discussion-writer`.
-8. Run maintenance with `kb-health` and consolidation with `kb-dream`.
-9. Use `academic-pipeline` for larger end-to-end research, writing, review, and revision workflows.
+3. Search for papers with `article-search` (Stage 1 — Exploratory).
+4. Add papers with `paper-skimmer`.
+5. Prioritize papers with `paper-selector`.
+6. Deep-read important papers with `paper-deep-reader`.
+7. Refine claims and build arguments with `kb`.
+8. Draft sections with `intro-writer`, `lit-review-generator`, or `discussion-writer`. These writing skills automatically invoke `article-search` (Stage 2 or 3) when they encounter evidence gaps.
+9. Run maintenance with `kb-health` and consolidation with `kb-dream`.
+10. Use `academic-pipeline` for larger end-to-end research, writing, review, and revision workflows.
+
+## MCP Dependencies
+
+| MCP Server | Used by | Purpose |
+|---|---|---|
+| `google-scholar` | `article-search` | Provides `search_google_scholar_key_words`, `search_google_scholar_advanced`, and `get_author_info` tools for searching Google Scholar programmatically. |
+
+The `google-scholar` MCP server must be connected before using `article-search`. Other skills in the plugin do not require external MCP servers.
+
+## Shared Resources
+
+| File | Location | Used by |
+|---|---|---|
+| `evidence-integrity-rules.md` | `modules/kb-writing/shared/` | `discussion-writer`, `intro-writer`, `lit-review-generator` |
+
+The evidence-integrity rules enforce no-fabrication, evidence-first writing, transparent handling of unsupported ideas, honest reporting of absent evidence, and confidence-calibrated language across all writing skills.
 
 ## Validate
 

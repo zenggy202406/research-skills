@@ -42,6 +42,12 @@ This skill should activate when:
 
 ## Knowledge Base Integration
 
+### Evidence Integrity Rules (Shared)
+
+**Before writing any prose, read and apply:** `modules/kb-writing/shared/evidence-integrity-rules.md`
+
+This shared rule file governs no-fabrication, evidence-first writing, transparent handling of unsupported ideas, logic flow requirements, secondary citation integrity, honest reporting of absent evidence, and confidence calibration. All 7 rules are mandatory during every writing phase.
+
 ### Grounding Policy
 
 During writing, strictly observe this priority:
@@ -81,7 +87,8 @@ When writing the Discussion, the existing claims and arguments may not cover eve
 1. **Search claims** across the project using `cross_search.py` for keywords relevant to a discussion point
 2. **Search papers-reference.md** by tags to identify papers that may inform a specific comparison
 3. **Skim additional papers** from the project's article pool if needed — check with user first whether to use NotebookLM summaries or raw markdowns before reading any paper
-4. If no relevant paper exists in the KB, **flag the gap** and ask the user to find an additional paper
+4. If no relevant paper exists in the KB, **invoke article-search** (Stage 3 — Evidential) to search Google Scholar for papers supporting the specific unsupported claim or mechanism. Pass the specific evidence gap as search context. Article-search will present results to the user for approval. If article-search finds nothing relevant, accept the absence honestly — see evidence-integrity-rules.md Rule 6.
+5. If article-search also finds nothing, **flag the gap** and let the user decide: include with explicit hedging (per evidence-integrity-rules.md Rule 3c), remove the point, or provide a source themselves
 
 ### Article-Level Evidence Extraction
 
@@ -393,4 +400,119 @@ When writing each paragraph, consult the claims and arguments extracted during P
 - **Competing explanations** that other authors have considered — these strengthen the alternative-explanations section
 
 When using extracted evidence:
-- Check whether the
+- Check whether the original source is in the project's paper collection. If yes, cite directly. If no, use secondary citation format.
+- Prefer extracted claims that multiple source articles agree on — convergence across sources strengthens the argument.
+- Do not over-rely on secondary citations. If a paragraph's core argument rests entirely on secondary citations, flag it and suggest deep-reading the original source or finding it directly.
+
+### On-Demand Deep Reading During Writing
+
+**This is a critical feature.** As you write each paragraph, assess whether the argument being made is **central to the interpretation of a key finding**. If it is, and the supporting paper has only been skimmed (not deeply read), **pause writing and invoke paper-deep-reader** on that paper before continuing.
+
+#### When to trigger deep reading:
+
+- The paragraph makes a **core theoretical interpretation** that explains why a finding occurred
+- The paragraph presents a **direct comparison with prior work** whose specific findings, effect sizes, or methodological details are needed
+- The paragraph discusses a **contradiction or divergence** between the current results and prior literature
+- The paragraph is in the **Alternative Explanations** section and needs precise detail from a competing account
+
+#### When NOT to trigger deep reading:
+
+- The paragraph provides **broad contextual framing** that doesn't require specific details
+- The paper is used as one of several **supporting citations** in a convergence argument
+- The information from skimming (abstract-level findings) is sufficient for the comparison being made
+
+#### How to deep-read during writing:
+
+1. Pause the drafting process
+2. Tell the user: "To write this paragraph well, I need to read [Author (Year)] more carefully — it's central to comparing our findings on [topic]. Let me do a deep read."
+3. Invoke paper-deep-reader on that specific paper (follow the paper-deep-reader SKILL.md workflow, including the multiple-choice interactive questions)
+4. After deep reading produces the integrated paragraph summary, **apply the Article-Level Evidence Extraction protocol** — extract all relevant claims and arguments from the full text with their original in-text citations. Deep reading yields richer extraction than skimming: capture nuanced findings, specific effect sizes, methodological qualifications, and theoretical reasoning chains with their citations.
+5. Resume writing with both the enriched understanding and the newly extracted evidence. Use secondary citation format ("as cited in") for any original citations encountered in the paper, unless those original sources are also in the project's paper collection.
+
+This means the writing process may alternate between drafting and deep-reading. That's intentional — it mirrors how researchers actually write, going back to papers when they need more detail for a specific argument.
+
+### Drafting Process
+
+Write one paragraph at a time, following the outline. After each paragraph, present it to the user:
+
+> **Here's paragraph [N] — [Topic sentence summary]:**
+>
+> [Paragraph text]
+>
+> **How does this read? Any points to strengthen, reframe, or adjust?**
+
+Incorporate feedback before moving to the next paragraph.
+
+### Evidence Integrity Check Per Paragraph
+
+For each paragraph, before presenting to user:
+1. Verify every claim traces to a KB source (claim ID, argument ID, or extracted evidence)
+2. Verify all citations use correct format (direct or secondary as appropriate)
+3. Flag any unsupported interpretive leaps with ⚠️ UNSUPPORTED marker
+4. Check that speculative language is appropriately hedged
+
+**Output of Phase 5:** A complete draft of the Discussion section, approved paragraph by paragraph.
+
+---
+
+## Phase 6 — Compile and Finalize
+
+### 6a. Assemble the Full Discussion
+
+Compile all approved paragraphs into a single coherent Discussion section. Check for:
+
+1. **Flow** — Smooth transitions between paragraphs and sections
+2. **Redundancy** — Remove repeated points that crept in across separate paragraphs
+3. **Consistency** — Terminology, tense, and citation style are uniform throughout
+4. **Inverse hourglass** — The section moves from specific (findings) to broad (implications) as intended
+5. **Opening and closing** — Opens with insight (not method recap), closes with significance (not limitation)
+
+### 6b. Present the Full Draft
+
+> **Here's the complete Discussion section:**
+>
+> [Full text]
+>
+> **Please review the full draft. Would you like to:**
+> (a) Approve as-is
+> (b) Revise specific paragraphs
+> (c) Reorder sections
+> (d) Add or remove content
+> (e) Adjust tone or emphasis
+
+### 6c. Generate the .docx
+
+Once the user approves the final text:
+
+1. **Read the docx skill** (`skills/docx/SKILL.md`) for formatting instructions
+2. Generate a `.docx` file with:
+   - Title: "Discussion — [Project Name]"
+   - APA 7 formatting (Times New Roman 12pt, double-spaced, 1-inch margins)
+   - Proper heading hierarchy (Discussion as Level 1, subsections as Level 2)
+   - All citations formatted in APA 7
+3. Save to the project folder or user's selected output location
+4. Present the file link to the user
+
+### 6d. Post-Writing Summary
+
+After generating the document, provide a brief summary:
+
+> **Discussion complete.**
+> - Paragraphs: [N]
+> - Findings discussed: [list F-IDs and emphasis levels]
+> - KB sources used: [N] claims, [N] arguments, [N] papers
+> - Secondary citations used: [N]
+> - Unsupported points flagged: [N] (resolved: [N])
+> - Layer 1 proposals applied: [list which proposals from the outline were included]
+
+---
+
+## Non-KB Mode
+
+If the user does not have a Research Knowledge Base, or invokes the skill outside a KB context:
+
+1. Skip all KB-specific steps (evidence scan from claims/arguments, Layer 1 rules, override logs)
+2. Ask the user to provide their own list of key papers and findings for comparison
+3. Follow the same phased workflow (Read Results → Prioritize → Evidence Scan via user input → Outline → Draft → Compile)
+4. Apply the writing principles and anti-patterns from `discussion_writing_guide.md` regardless
+5. Use the same paragraph-by-paragraph interactive drafting process
